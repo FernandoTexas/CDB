@@ -1,0 +1,39 @@
+<div class="container">
+  <h1>Calculadora de CDB</h1>
+
+  <form (ngSubmit)="calcular()" #cdbForm="ngForm">
+    <div class="form-group">
+      <label for="valor">Valor:</label>
+      <input
+        type="number"
+        id="valor"
+        name="valor"
+        [(ngModel)]="valor"
+        required
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="meses">Meses:</label>
+      <input
+        type="number"
+        id="meses"
+        name="meses"
+        [(ngModel)]="meses"
+        required
+        class="form-control"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Calcular</button>
+  </form>
+
+  <div *ngIf="resultado" class="result">
+    <h2>Resultado:</h2>
+    <div class="result-content">
+      <p><strong>Valor Bruto:</strong> {{ resultado.valorBruto | currency:'BRL':'symbol' }}</p>
+      <p><strong>Valor Líquido:</strong> {{ resultado.valorLiquido | currency:'BRL':'symbol' }}</p>
+    </div>
+  </div>
+</div>
