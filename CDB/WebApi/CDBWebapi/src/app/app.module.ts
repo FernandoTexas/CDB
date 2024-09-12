@@ -10,7 +10,7 @@ import { CdbModule } from './cdb-calculator/cdb/cdb.module';
 const routes: Routes = [
   // Defina suas rotas aqui
   { path: 'cdb', loadChildren: () => import('./cdb-calculator/cdb/cdb.module').then(m => m.CdbModule) },
-  { path: '', redirectTo: '/cdb', pathMatch: 'full' }
+  { path: '', redirectTo: '/cdb-calculator', pathMatch: 'full' }
 ];
 
 @NgModule({
