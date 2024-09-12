@@ -1,0 +1,48 @@
+using Application.Services;
+using Domain;
+
+var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200")
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ICdbAppService, CdbAppService>();
+builder.Services.AddScoped<ICdb, Cdb>();
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+app.UseHsts();
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+app.UseAuthorization();
+app.UseRouting();
+
+app.UseCors("AllowSpecificOrigin");
+
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+app.MapControllers();
+
+app.Run();
